@@ -188,6 +188,9 @@ def make_context(asset_depth=0):
     except copytext.CopyException:
         pass
 
+    with open('www/js/data.json') as f:
+        context['data'] = f.read()
+
     context['JS'] = JavascriptIncluder(asset_depth=asset_depth)
     context['CSS'] = CSSIncluder(asset_depth=asset_depth)
 

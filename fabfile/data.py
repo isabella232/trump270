@@ -31,19 +31,34 @@ def update():
 def make_json_data():
     raw_data = copytext.Copy(app_config.DATA_PATH)
     data = []
-    for row in raw_data['2012_model_turnout']:
-        state_data = defaultdict(dict)
-        state_data['state'] = row['state']
+    groups = []
+
+    for i, row in enumerate(raw_data['2012_model_turnout']):
+        state_data = {
+            'state': row['state'],
+            'demographics': [],
+        }
+
         for group in DATA_GROUPS:
             group_slug = slugify(group, separator='_')
+            group_data = {
+                'demographic': group_slug,
+            }
+
             for column in DATA_COLUMNS:
                 column_slug = slugify(column, separator='_')
                 raw_data_column = '{0} {1}'.format(group, column)
                 value = row[raw_data_column]
-                try:
-                    state_data[group_slug][column_slug] = locale.atof(value)
-                except ValueError:
-                    print('{0}: {1} could not be converted to a float'.format(raw_data_column, value))
+                group_data[column_slug] = locale.atof(value)
+                if i == 0:
+                    groups.append(raw_data_column)
+
+            state_data['demographics'].append(group_data)
+
         data.append(state_data)
+
     with codecs.open(app_config.PROCESSED_DATA_PATH, 'w') as f:
-        json.dump(data, f)
+        json.dump({
+            'data': data,
+            'groups': groups,
+        }, f)

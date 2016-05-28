@@ -1,46 +1,53 @@
 {% extends '_base.html' %}
 
 {% block header_content %}
-<header>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>{{ COPY.content.project_name|smarty }}</h1>
-                <h2>{{ COPY.content.lorem_ipsum|smarty }}</h2>
-            </div>
-        </div>
-    </div>
-</header>
 {% endblock %}
 
 
 {% block content %}
 <section id="content">
     <div class="container">
-        <div class="row">
-            <div id="main-content" class="col-md-8">
-
-                <h1>{{ COPY.content.project_name }}</h1>
-
-                <div id="story-meta">
-                    <p class="byline">by <span>{{ COPY.content.byline }}</span></p>
-                    <p class="dateblock">
-                        <span class="date">{{ COPY.content.pubdate }}</span>
-                        <span class="time"> {{ COPY.content.pubtime }}</span>
-                    </p>
-                </div>
-
-                <h2 class="knockout-example">Example COPY list</h2>
-                <dl>
-                    {% for row in COPY.example_list %}
-                    <dt>{{ row.term }}</dt><dd>{{ row.definition }}</dd>
-                    {% endfor %}
-                </dl>
-
-                <h2 class="knockout-example">JST example</h2>
-                <p id="template-example"></p>
-            </div>
+        <div id="data-table">
+            <h1>hi</h1>
+        </div>
+        <div id="base-table">
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_foot_js %}
+<script src='http://cdn.ractivejs.org/latest/ractive.js'></script>
+
+{% raw %}
+<script id='base-table-template' type='text/ractive'>
+    <table>
+        <thead>
+            <tr>
+                <th>State</th>
+                {{#groups:group}}
+                <th>{{groups[group]}}</th>
+                {{/groups}}
+            </tr>
+        </thead>
+        <tbody>
+            {{#data}}
+            <tr>
+                <th>{{state}}</th>
+                {{#demographics}}
+                <td>{{r_pct}}</td>
+                <td>{{d_pct}}</td>
+                <td>{{turnout}}</td>
+                <td>{{eligible_voters}}</td>
+                {{/demographics}}
+            </tr>
+            {{/data}}
+        </tbody>
+    </table>
+</script>
+{% endraw %}
+
+<script>
+var baseData = {{ data|safe }};
+</script>
 {% endblock %}
