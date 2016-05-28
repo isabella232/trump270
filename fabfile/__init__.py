@@ -5,7 +5,7 @@ import json
 import os
 
 from boto.s3.key import Key
-from fabric.api import local, require, settings, task
+from fabric.api import execute, local, require, settings, task
 from fabric.state import env
 from termcolor import colored
 
@@ -131,10 +131,10 @@ def update():
     """
     Update all application data not in repository (copy, assets, etc).
     """
-    utils.install_font(force=False)
-    text.update()
-    assets.sync()
-    data.update()
+    execute('utils.install_font', force=False)
+    execute('text.update')
+    execute('assets.sync')
+    execute('data.update')
 
 @task
 def deploy(remote='origin', reload=False):
