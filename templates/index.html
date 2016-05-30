@@ -7,10 +7,7 @@
 {% block content %}
 <section id="content">
     <div class="container">
-        <div id="data-table">
-            <h1>hi</h1>
-        </div>
-        <div id="base-table">
+        <div id="margin-table">
         </div>
     </div>
 </section>
@@ -20,30 +17,30 @@
 <script src='http://cdn.ractivejs.org/latest/ractive.js'></script>
 
 {% raw %}
-<script id='base-table-template' type='text/ractive'>
-    <table>
-        <thead>
-            <tr>
-                <th>State</th>
-                {{#groups:group}}
-                <th>{{groups[group]}}</th>
-                {{/groups}}
-            </tr>
-        </thead>
-        <tbody>
-            {{#data}}
-            <tr>
-                <th>{{state}}</th>
-                {{#demographics}}
-                <td>{{r_pct}}</td>
-                <td>{{d_pct}}</td>
-                <td>{{turnout}}</td>
-                <td>{{eligible_voters}}</td>
-                {{/demographics}}
-            </tr>
-            {{/data}}
-        </tbody>
-    </table>
+<script id="margin-table-template" type="text/ractive">
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            {{#labels}}
+            <th>{{label}}</th>
+            {{/label}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each rows}}
+        <tr>
+            <th>{{@key}}</th>
+            {{#this}}
+            <td class="{{winner}} {{marginType}}">
+                {{Math.abs(margin * 100).toFixed(1)}}%
+            </td>
+            {{/this}}
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
 </script>
 {% endraw %}
 
