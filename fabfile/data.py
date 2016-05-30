@@ -9,7 +9,6 @@ import copytext
 import json
 import locale
 
-from collections import defaultdict
 from fabric.api import execute, task
 from slugify import slugify
 
@@ -36,6 +35,7 @@ def make_json_data():
     for i, row in enumerate(raw_data['2012_model_turnout']):
         state_data = {
             'state': row['state'],
+            'electoral_votes': int(float(row['electoral votes'])),
             'demographics': [],
         }
 
