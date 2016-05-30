@@ -2,40 +2,51 @@
  * Run on page load.
  */
 var adjustments = {
-    'white_man': {
-        'pct': 0.0,
-        'turnout': 0.0,
-    },
-    'white_woman': {
-        'pct': 0.0,
-        'turnout': 0.0,
-    },
-    'black': {
-        'pct': 0.0,
-        'turnout': 0.0,
-    },
-    'hispanic': {
-        'pct': 0.0,
-        'turnout': 0.0,
-    },
-    'other': {
-        'pct': 0.0,
-        'turnout': 0.0,
-    },
+    'adjustments': {
+        'white_man': {
+            'pct': 0.0,
+            'turnout': 0.0,
+        },
+        'white_woman': {
+            'pct': 0.0,
+            'turnout': 0.0,
+        },
+        'black': {
+            'pct': 0.0,
+            'turnout': 0.0,
+        },
+        'hispanic': {
+            'pct': 0.0,
+            'turnout': 0.0,
+        },
+        'other': {
+            'pct': 0.0,
+            'turnout': 0.0,
+        }
+    }
 }
 
-var marginData = {};
 var tossUpStates = _.pluck(baseData.data, 'state');
 
 var onDocumentLoad = function(e) {
-    makeOutcomes();
-
-    var dataTableRactive = new Ractive({
+    dataTableRactive = new Ractive({
         el: '#margin-table',
         template: '#margin-table-template',
-        magic: true,
-        data: marginData
+        data: makeOutcomes()
     });
+
+    controlsRactive = new Ractive({
+        el: '#table-controls',
+        template: '#controls-template',
+        data: adjustments,
+    });
+
+    controlsRactive.observe('*', watchControl);
+}
+
+var watchControl = function(e) {
+    var outcomes = makeOutcomes();
+    dataTableRactive.set('rows', outcomes.rows);
 }
 
 var makeOutcomes = function() {
@@ -49,37 +60,27 @@ var makeOutcomes = function() {
     for (var i = 0; i < 9; ++i) {
         var adjustment = i * 0.01;
         adjustmentLabels.push({label: '+'+ (adjustment * 100).toFixed(0) + '%'});
-        adjustments.white_man.pct = adjustment;
+        adjustments.adjustments.white_man.pct = adjustment;
         var outcome = calculateOutcome(adjustments);
         _.each(outcome, function(row) {
-            if (row.margin > 0) {
-                var winner = 'gop';
-            } else {
-                var winner = 'dem';
-            }
-            var absMargin = Math.abs(row.margin);
-
-            if (absMargin < 0.02) {
-                var victoryMargin = 'small';
-            /*} else if (absMargin >= 0.02 && absMargin < 0.04) {
-                var victoryMargin = 'medium'; */
-            } else {
-                var victoryMargin = 'large';
-            }
+            var marginPct = Math.abs(row.margin) * 100;
+            var winnerClass = (row.margin > 0) ? 'gop' : 'dem';
+            var marginClass = 'margin-' + marginPct.toFixed(0);
 
             outcomes[row.state].push({
-                winner: winner,
-                marginType: victoryMargin,
-                margin: row.margin
+                winnerClass: winnerClass,
+                marginClass: marginClass,
+                margin: marginPct.toFixed(1)
             });
         });
     }
 
-    marginData = {
+    return {
         labels: adjustmentLabels,
         rows: outcomes
     }
 }
+
 
 var calculateOutcome = function(adjustments) {
     var processedData = [];
@@ -94,7 +95,7 @@ var calculateOutcome = function(adjustments) {
         var adjustedOtherVotes = 0;
 
         _.each(row.demographics, function(demographic) {
-            var adjustment = adjustments[demographic.demographic];
+            var adjustment = adjustments.adjustments[demographic.demographic];
 
             var adjustedDemPct = demographic.d_pct - adjustment.pct;
             var adjustedGOPPct = demographic.r_pct + adjustment.pct;

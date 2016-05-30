@@ -7,6 +7,8 @@
 {% block content %}
 <section id="content">
     <div class="container">
+        <div id="table-controls">
+        </div>
         <div id="margin-table">
         </div>
     </div>
@@ -21,7 +23,7 @@
 <table>
     <thead>
         <tr>
-            <th></th>
+            <th>White male margin<br/>(Compared to 2012)</th>
             {{#labels}}
             <th>{{label}}</th>
             {{/label}}
@@ -33,14 +35,32 @@
         <tr>
             <th>{{@key}}</th>
             {{#this}}
-            <td class="{{winner}} {{marginType}}">
-                {{Math.abs(margin * 100).toFixed(1)}}%
+            <td class="{{winnerClass}} {{marginClass}}">
+                {{margin}}%
             </td>
             {{/this}}
         </tr>
         {{/each}}
     </tbody>
 </table>
+</script>
+
+<script id="controls-template" type="text/ractive">
+{{#each adjustments}}
+<div class="{{@key}}">
+    <div class="control-group">
+        <input id="{{@key}}-pct" type="range" step="0.01" value="{{this.pct}}" min="-0.10" max="0.10">
+        <span>{{(this.pct * 100).toFixed(0)}}%</span>
+        <label for="{{@key}}-pct">{{@key}} margin</label>
+    </div>
+    <div class="control-group">
+        <input id="{{@key}}-turnout" type="range" step="0.01" value="{{this.turnout}}" min="-0.05" max="0.05">
+        <span>{{(this.turnout * 100).toFixed(0)}}%</span>
+        <label for="{{@key}}-turnout">{{@key}} turnout</label>
+    </div>
+    <hr/>
+</div>
+{{/each}}
 </script>
 {% endraw %}
 
