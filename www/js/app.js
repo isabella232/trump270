@@ -98,8 +98,17 @@ var calculateOutcome = function(adjustments) {
             var adjustment = adjustments.adjustments[demographic.demographic];
 
             var adjustedDemPct = demographic.d_pct - adjustment.pct;
+            adjustedDemPct = (adjustedDemPct < 0) ? 0 : adjustedDemPct;
+            adjustedDemPct = (adjustedDemPct > 1) ? 1 : adjustedDemPct;
+
             var adjustedGOPPct = demographic.r_pct + adjustment.pct;
+            adjustedGOPPct = (adjustedGOPPct < 0) ? 0 : adjustedGOPPct;
+            adjustedGOPPct = (adjustedGOPPct > 1) ? 1 : adjustedGOPPct;
+
             var adjustedTurnout = demographic.turnout + adjustment.turnout;
+            adjustedTurnout = (adjustedTurnout < 0) ? 0 : adjustedTurnout;
+            adjustedTurnout = (adjustedTurnout > 1) ? 1 : adjustedTurnout;
+
             var adjustedVotes = demographic.eligible_voters * adjustedTurnout;
 
             adjustedOtherVotes = Math.abs(demographic.r_pct - demographic.d_pct) * demographic.eligible_voters * demographic.turnout;
