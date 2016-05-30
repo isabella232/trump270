@@ -42,19 +42,33 @@
         </tr>
         {{/each}}
     </tbody>
+    <tfoot>
+        <tr>
+            <td>GOP electoral votes</td>
+            {{#electoralVotes}}
+            <td>{{gop}}</td>
+            {{/electoralVotes}}
+        </tr>
+        <tr>
+            <td>Dem electoral votes</td>
+            {{#electoralVotes}}
+            <td>{{dem}}</td>
+            {{/electoralVotes}}
+        </tr>
+    </tfoot>
 </table>
 </script>
 
 <script id="controls-template" type="text/ractive">
 {{#each adjustments}}
 <div class="{{@key}}">
-    <div class="control-group">
+    <div class="control-group {{@key}}-pct-group">
         <input id="{{@key}}-pct" type="range" step="0.01" value="{{this.pct}}" min="-0.10" max="0.10">
         <span>{{(this.pct * 100).toFixed(0)}}%</span>
         <label for="{{@key}}-pct">{{@key}} margin</label>
     </div>
-    <div class="control-group">
-        <input id="{{@key}}-turnout" type="range" step="0.01" value="{{this.turnout}}" min="-0.05" max="0.05">
+    <div class="control-group  {{@key}}-turnout-group">
+        <input id="{{@key}}-turnout" type="range" step="0.01" value="{{this.turnout}}" min="-0.10" max="0.10">
         <span>{{(this.turnout * 100).toFixed(0)}}%</span>
         <label for="{{@key}}-turnout">{{@key}} turnout</label>
     </div>

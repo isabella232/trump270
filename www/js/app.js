@@ -47,6 +47,7 @@ var onDocumentLoad = function(e) {
 var watchControl = function(e) {
     var outcomes = makeOutcomes();
     dataTableRactive.set('rows', outcomes.rows);
+    dataTableRactive.set('electoralVotes', outcomes.electoralVotes);
 }
 
 var makeOutcomes = function() {
@@ -57,16 +58,20 @@ var makeOutcomes = function() {
         outcomes[state] = [];
     }
 
+    var electoralVotes = [];
     for (var i = 0; i < 9; ++i) {
         var adjustment = i * 0.01;
         adjustmentLabels.push({label: '+'+ (adjustment * 100).toFixed(0) + '%'});
         adjustments.adjustments.white_man.pct = adjustment;
+
+        electoralVotes.push({gop: 155, dem: 124});
+
         var outcome = calculateOutcome(adjustments);
         _.each(outcome, function(row) {
             var marginPct = Math.abs(row.margin) * 100;
             var winnerClass = (row.margin > 0) ? 'gop' : 'dem';
             var marginClass = 'margin-' + marginPct.toFixed(0);
-
+            electoralVotes[i][winnerClass] += row.electoralVotes;
             outcomes[row.state].push({
                 winnerClass: winnerClass,
                 marginClass: marginClass,
@@ -76,6 +81,7 @@ var makeOutcomes = function() {
     }
 
     return {
+        electoralVotes: electoralVotes,
         labels: adjustmentLabels,
         rows: outcomes
     }
@@ -86,8 +92,6 @@ var calculateOutcome = function(adjustments) {
     var processedData = [];
     _.each(baseData.data, function(row) {
         var processedRow = {};
-        processedRow.state = row.state;
-
         var projectedGOPVotes = 0;
         var projectedDemVotes = 0;
         var adjustedGOPVotes = 0;
@@ -120,6 +124,9 @@ var calculateOutcome = function(adjustments) {
         processedRow.demPct = adjustedDemVotes / adjustedTotalVotes;
         processedRow.gopPct = adjustedGOPVotes / adjustedTotalVotes;
         processedRow.margin = processedRow.gopPct - processedRow.demPct;
+
+        processedRow.state = row.state;
+        processedRow.electoralVotes = row.electoral_votes;
 
         processedData.push(processedRow);
     });
