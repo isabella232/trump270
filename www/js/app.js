@@ -59,7 +59,7 @@ var makeOutcomes = function() {
     }
 
     var electoralVotes = [];
-    for (var i = 0; i < 9; ++i) {
+    for (var i = 0; i < 11; ++i) {
         var adjustment = i * 0.01;
         adjustmentLabels.push({label: '+'+ (adjustment * 100).toFixed(0) + '%'});
         adjustments.adjustments.white_man.pct = adjustment;
