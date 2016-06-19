@@ -18,7 +18,19 @@
 <table>
     <thead>
         <tr>
-            <th>White male margin<br/>(Compared to 2012)</th>
+            <td class="votes">GOP votes</td>
+            {{#electoralVotes}}
+            <td>{{gop}}</td>
+            {{/electoralVotes}}
+        </tr>
+        <tr>
+            <td class="votes">Dem votes</td>
+            {{#electoralVotes}}
+            <td>{{dem}}</td>
+            {{/electoralVotes}}
+        </tr>
+        <tr>
+            <th><!--White male margin<br/>(Compared to 2012)--></th>
             {{#labels}}
             <th>{{label}}</th>
             {{/label}}
@@ -30,26 +42,15 @@
         <tr>
             <th>{{@key}}</th>
             {{#this}}
-            <td class="{{winnerClass}} {{marginClass}}">
-                {{margin}}%
+            <td class="{{winnerClass}} {{marginClass}}" data-tooltip="{{margin}}%">
+            <!--{{margin}}%-->
             </td>
             {{/this}}
         </tr>
         {{/each}}
     </tbody>
     <tfoot>
-        <tr>
-            <td>GOP electoral votes</td>
-            {{#electoralVotes}}
-            <td>{{gop}}</td>
-            {{/electoralVotes}}
-        </tr>
-        <tr>
-            <td>Dem electoral votes</td>
-            {{#electoralVotes}}
-            <td>{{dem}}</td>
-            {{/electoralVotes}}
-        </tr>
+
     </tfoot>
 </table>
 </script>
