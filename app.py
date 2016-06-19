@@ -12,8 +12,8 @@ import logging
 import oauth
 import static
 
-from flask import Flask, make_response, render_template
-from render_utils import make_context, smarty_filter, urlencode_filter
+from flask import Flask, make_response, render_template, render_template_string
+from render_utils import make_context, markdown_filter, smarty_filter, urlencode_filter
 from werkzeug.debug import DebuggedApplication
 
 app = Flask(__name__)
@@ -21,6 +21,7 @@ app.debug = app_config.DEBUG
 
 app.add_template_filter(smarty_filter, name='smarty')
 app.add_template_filter(urlencode_filter, name='urlencode')
+app.add_template_filter(markdown_filter, name='markdown')
 
 logging.basicConfig(format=app_config.LOG_FORMAT)
 logger = logging.getLogger(__name__)
@@ -33,6 +34,10 @@ def index():
     Example view demonstrating rendering a simple HTML page.
     """
     context = make_context()
+    with open('content/story.md') as f:
+        content = f.read()
+
+    context['content'] = render_template_string(content)
 
     return make_response(render_template('index.html', **context))
 

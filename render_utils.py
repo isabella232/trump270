@@ -11,6 +11,7 @@ import subprocess
 from flask import Markup, g, render_template, request
 from slimit import minify
 from smartypants import smartypants
+from markdown import markdown
 
 import app_config
 import copytext
@@ -232,3 +233,10 @@ def smarty_filter(s):
     except:
         logger.error('This string failed to encode: %s' % s)
         return Markup(s)
+
+def markdown_filter(s):
+    """
+    Process markdown
+    """
+    text = markdown(s)
+    return Markup(text)
