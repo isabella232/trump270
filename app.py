@@ -37,6 +37,7 @@ def index():
     with open('content/story.md') as f:
         content = f.read()
 
+    context['ractive_counter'] = 0
     context['content'] = render_template_string(content)
 
     return make_response(render_template('index.html', **context))

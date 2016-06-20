@@ -10,9 +10,10 @@ Demographic analysis is by no means a crystal ball, but it is, perhaps, the most
  
 To start off, we looked at the 2012 election map, and created a list of 19 states -- a combination of traditionally accepted battleground states and potentially reversible states (that lean Republican or Democrat), based on the guidance that NPR's political editor Domenico Montanaro outlined earlier this spring. And then for kicks - we decided to add in New York because Trump is fond of saying he can win his home state- quote him.
 
-{{ macros.model_table() }}
  
-Remind me - how did the 2012 map look?
+## Remind me - how did the 2012 map look?
+
+<img src="assets/cartogram-placeholder.png"/>
  
 President Obama won the 2012 election by 126 electoral votes -- 332 to 206. In the last four years, the population and the demographics of the country have changed in ways that favor a generic Democratic candidate today even more convincingly. The current demographics of the country are changing in irreversible ways; just consider - the current under-age five population in the country is now majority-minority, according to the Census Bureau.
  
@@ -22,7 +23,9 @@ But, the big question is - has the door already closed? Or could Trump still hav
  
 This November, the electorate is expected be the most racially diverse in history. But still, an estimated 72 percent of voters are expected to be white, according to a Brookings Institution March analysis of Current Population Survey numbers from the Census Bureau. And those white voters hold tremendous political power. Trump seems to be trying to boost his popularity among them, specifically courting white men, in the hopes of winning rust belt states and flipping Ohio and Pennsylvania red.
  
-what does the 2016 electoral map look like?
+## What does the 2016 electoral map look like?
+
+<img src="assets/cartogram-placeholder.png"/>
  
 With the help of Census data and Bill Frey, a demographer at the Brookings Institute, we estimated the current voting population in each of our 20 states (more on the methodology below).
  
@@ -35,16 +38,16 @@ Our map paints a slightly more favorable map for him; in which he would win by 1
 This is to say - assuming there's absolutely no change in turnout or levels of support - Trump has a hugely uphill battle.
  
 Basic demography favors the Democrats.
- 
- 
- 
-HOW CAN TRUMP WIN? WHAT IF WE BOOST WHITE MALE TURNOUT AND THE WHITE  MALE MARGIN OF VICTORY?
+  
+## HOW CAN TRUMP WIN? WHAT IF WE BOOST WHITE MALE TURNOUT AND THE WHITE  MALE MARGIN OF VICTORY?
  
 Trump insists he's bringing out new voters, and the basic demographic premise of his primary run was that he could boost white male turnout and simultaneously increase white male margins of support for his candidacy.
  
 So, we tested those ideas.
  
 We increased white male turnout in each of these potentially flippable states by 2 percent.
+
+{{ macros.model_table('white-men-turnout') }}
  
 And while that helps Trump, he's still far from the finish line. Our analysis shows he would win Ohio and Pennsylvania but still lose the election by 88 votes, 313 - 225.
  
@@ -62,7 +65,7 @@ Our basic demographic calculations for 2016 show Ohio going to the Republicans b
  
 And, Trump would win the election 294 - 244.
  
-HOLD UP - WHAT IF HE LOSES FLORIDA?
+## HOLD UP - WHAT IF HE LOSES FLORIDA?
  
 In all the simulations above we assume that Trump only has an effect in boosting support for Republicans; but he might also boost support for Democrats - as a reaction to his policies and rhetoric. In particular, the big question is - could he manage to maintain Mitt Romney levels of support among Latinos. 
  
@@ -75,7 +78,7 @@ Recent national polls show Trump is capturing closer to 21 percent of the Latino
 So if we adjust Trump's Latino level of support in Florida to his current polling average of 21 percent, the state flips blue again and Clinton would win the White House, 273-265.
  
  
-So, then could he win WI or MI instead?
+## So, then could he win WI or MI instead?
  
 If Trump loses Florida, he'll need to find another state (or two) to make up for those 29 electoral votes.
  
@@ -91,7 +94,7 @@ For Trump, the most viable route goes through Arizona, Indiana, Ohio, Pennsylvan
  
 And if can squeeze through all those states, he could be the next president.
  
-Things that make you go hm...
+## Things that make you go hm...
  
 Three major interesting takeaways:
  
@@ -102,19 +105,19 @@ Three major interesting takeaways:
 3) Since Trump often imagines winning New York, we wanted to see what it would take for him to realistically turn his home state Republican. Assuming all other demographics groups vote exactly as they did in 2012, and assuming turnout also remains constant, Trump would need to win 97 percent of white men in New York. 97 percent.
  
  
- 
- 
-Can I play with these numbers?
+## Can I play with these numbers?
  
 Throughout all of these simulations, we never changed how white women or black folks would vote in November. President Obama lost white women by 14 points in the 2012 election (42 - 56 percent).
  
 Early polling suggests Clinton is making inroads with white women and many analysts have suggested that if Trump boosts turnout for white men, he's likely to inadvertently also boost turnout/support for Clinton among white women/Latinos.
  
 You can adjust turnout and levels of support here to see what combination makes sense to you, and how you, personally, could create a roadmap to 270 for Donald Trump.
+
+{{ macros.model_table('interactive') }}
  
  
- 
-METHODOLOGY:
+## Methodology
+
 Thanks to the guidance and expertise of Bill Frey, a demographer at the Brookings Institution, we broke down the current electorate into five categories: white men, white women, black, latino and other.
  
 We used 2012 turnout rates as compiled by the Census for individual states and multiplied that by the current number of 2016 eligible voters, as indicated by the March Current Population Survey as citizens above the age of 18.

@@ -1,6 +1,15 @@
-{% macro model_table() -%}
+{% macro model_table(id) -%}
 <div class="container clearfix">
-    <div id="table-controls"></div>
-    <div id="margin-table"></div>
+    <div id="{{ id }}-table-controls" class="table-controls"></div>
+    <div id="{{ id }}-margin-table" class="margin-table"></div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    new Ractive({
+        el: '#{{ id }}-margin-table',
+        template: '#margin-table-template',
+        data: makeOutcomes()
+    });
+});
+</script>
 {%- endmacro %}
