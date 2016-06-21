@@ -4,12 +4,46 @@
     <div id="{{ id }}-margin-table" class="margin-table"></div>
 </div>
 <script>
+
+var {{id}}_adjustments = {
+    'adjustments': {
+        'white_man': {
+            'pct': 0.0,
+            'turnout': 0.0,
+        },
+        'white_woman': {
+            'pct': 0.0,
+            'turnout': 0.0,
+        },
+        'black': {
+            'pct': 0.0,
+            'turnout': 0.0,
+        },
+        'hispanic': {
+            'pct': 0.0,
+            'turnout': 0.0,
+        },
+        'other': {
+            'pct': 0.0,
+            'turnout': 0.0,
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-    new Ractive({
+    var tableReactive = new Ractive({
         el: '#{{ id }}-margin-table',
         template: '#margin-table-template',
         data: makeOutcomes()
     });
+
+    var controlsRactive = new Ractive({
+        el: '#{{ id }}-table-controls',
+        template: '#controls-template',
+        data: {{id}}_adjustments
+    });
+
+    controlsRactive.observe('*', watchControl);
 });
 </script>
 {%- endmacro %}
