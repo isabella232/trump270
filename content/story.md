@@ -47,7 +47,7 @@ So, we tested those ideas.
 
 We increased white male turnout in each of these potentially flippable states by 2 percent.
 
-{{ macros.model_table('white_men_turnout') }}
+{{ macros.model_table('wh-turnout', white_man_turnout=0.02, interactive='disabled')}}
 
 And while that helps Trump, he's still far from the finish line. Our analysis shows he would win Ohio and Pennsylvania but still lose the election by 88 votes, 313 - 225.
 
@@ -55,11 +55,15 @@ We then tested the second idea - that Trump could win white men by 4 percent mor
 
 And again we held all other demographic groups constant.
 
+{{ macros.model_table('wh-pct', white_man_pct=0.04, interactive='disabled')}}
+
 If Trump could do that, he has a viable path to the White House. He could theoretically win by 18 electoral votes, 278 - 260.
 
 Now, if he could both boost turnout among white men (by 2 percent) and also win them more convincingly (4 percent more than Mitt Romney), while managing to win white women, Latinos, Asians and African-Americans at Mitt Romney levels of support, then he's got the best shot at the White House.
 
 We found that he could flip Colorado, Florida, and Pennsylvania.
+
+{{ macros.model_table('wh-turnout-pct', white_man_turnout=0.02, white_man_pct=0.04, interactive='disabled')}}
 
 Our basic demographic calculations for 2016 show Ohio going to the Republicans by a hair. And North Carolina and Georgia potentially going Democrat; but boosting turnout would flip both of these states red again.
 
@@ -77,6 +81,7 @@ Recent national polls show Trump is capturing closer to 21 percent of the Latino
 
 So if we adjust Trump's Latino level of support in Florida to his current polling average of 21 percent, the state flips blue again and Clinton would win the White House, 273-265.
 
+{{ macros.model_table('hispanic-pct', hispanic_pct=-0.06, interactive='disabled')}}
 
 ## So, then could he win WI or MI instead?
 
@@ -114,7 +119,6 @@ Early polling suggests Clinton is making inroads with white women and many analy
 You can adjust turnout and levels of support here to see what combination makes sense to you, and how you, personally, could create a roadmap to 270 for Donald Trump.
 
 {{ macros.model_table('interactive') }}
-
 
 ## Methodology
 

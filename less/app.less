@@ -74,13 +74,17 @@ table {
     }
 }
 
-#table-controls{
+.table-controls{
     float: left;
-    .white_man-pct-group {
-        display: none;
+
+    &.disabled {
+        pointer-events: none;
     }
 }
-#margin-table {
+
+
+
+.margin-table {
     float: left;
     margin-left: 30px;
 }

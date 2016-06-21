@@ -1,49 +1,44 @@
 {% macro model_table(id) -%}
 <div class="container clearfix">
-    <div id="{{ id }}-table-controls" class="table-controls"></div>
+    <div id="{{ id }}-table-controls" class="table-controls {% if kwargs.get('interactive') == 'disabled' %} disabled{% endif %}"></div>
     <div id="{{ id }}-margin-table" class="margin-table"></div>
 </div>
 <script>
-
-var {{id}}_adjustments = {
-    'adjustments': {
-        'white_man': {
-            'pct': 0.0,
-            'turnout': 0.0,
-        },
-        'white_woman': {
-            'pct': 0.0,
-            'turnout': 0.0,
-        },
-        'black': {
-            'pct': 0.0,
-            'turnout': 0.0,
-        },
-        'hispanic': {
-            'pct': 0.0,
-            'turnout': 0.0,
-        },
-        'other': {
-            'pct': 0.0,
-            'turnout': 0.0,
-        }
-    }
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-    var tableReactive = new Ractive({
-        el: '#{{ id }}-margin-table',
-        template: '#margin-table-template',
-        data: makeOutcomes()
-    });
+    // Retrieve the base data from the global scope
+    var data = baseData.data;
 
-    var controlsRactive = new Ractive({
-        el: '#{{ id }}-table-controls',
-        template: '#controls-template',
-        data: {{id}}_adjustments
-    });
-
-    controlsRactive.observe('*', watchControl);
+    //Get the adjustments from the macro parameters
+    var adjustments = {
+        'adjustments': {
+            'white_man': {
+                'pct': {{kwargs.get('white_man_pct', 0.0)}},
+                'turnout': {{kwargs.get('white_man_turnout', 0.0)}},
+            },
+            'white_woman': {
+                'pct': {{kwargs.get('white_woman_pct', 0.0)}},
+                'turnout': {{kwargs.get('white_woman_turnout', 0.0)}},
+            },
+            'black': {
+                'pct': {{kwargs.get('black_pct', 0.0)}},
+                'turnout': {{kwargs.get('black_turnout', 0.0)}},
+            },
+            'hispanic': {
+                'pct': {{kwargs.get('hispanic_pct', 0.0)}},
+                'turnout': {{kwargs.get('hispanic_turnout', 0.0)}},
+            },
+            'other': {
+                'pct': {{kwargs.get('other_pct', 0.0)}},
+                'turnout': {{kwargs.get('other_turnout', 0.0)}},
+            }
+        }
+    };
+    var interactive = true;
+    {% if kwargs.get('interactive') == 'disabled' %}
+    interactive = false;
+    {% endif %}
+    simulator = new ElectionSimulator("{{ id }}-margin-table", "{{ id }}-table-controls", adjustments, interactive, baseData.data);
+    simulator.render();
 });
 </script>
 {%- endmacro %}
