@@ -90,6 +90,8 @@ ElectionSimulator.prototype.watchControl = function(e) {
     var outcomes = _self.makeOutcomes();
     _self.tableReactive.set('rows', outcomes.rows);
     _self.tableReactive.set('electoralVotes', outcomes.electoralVotes);
+    _self.resultsRactive.set('rows', outcomes.rows);
+    _self.resultsRactive.set('electoralVotes', outcomes.electoralVotes);
 }
 
 ElectionSimulator.prototype.render = function() {
