@@ -24,10 +24,18 @@ p {
     }
 }
 
+.container {
+    font: 14px/1.4 Helvetica,Arial,sans-serif;
+    max-width: 80%;
+    margin: 0 auto;
+    display: block;
+}
+
 table {
     border-collapse: collapse;
-    font-family: "Courier New", monospace;
-    font-size: 12px;
+    // font-family: "Courier New", monospace;
+    font: 14px/1.4 Helvetica,Arial,sans-serif;
+    // font-size: 12px;
     td {
         padding: 2px 0;
         font-weight: 300;
@@ -37,8 +45,8 @@ table {
     }
     tbody {
         th {
-            text-align: right;
-            padding-right: 3px;
+            text-align: left;
+            padding-left: 3px;
         }
         td {
             font-size: 9px;
@@ -68,17 +76,32 @@ table {
 
 .table-controls{
     float: left;
+
     &.disabled {
         pointer-events: none;
     }
 
-    h2 {
-        margin: 0px 0px 2px 0px;
+    h3 {
+        margin: 15px 0px 5px 0px;
+        // font: 14px/1.4 Helvetica,Arial,sans-serif;
+        text-transform: capitalize;
+
+        &:first-child {
+            margin-top: 0;
+        }
     }
 }
 
 .table-totals{
     float: left;
+    margin-bottom: 20px;
+    min-width: 30%;
+
+    p {
+        font-size: 45px;
+        margin: 0 auto 15px auto;
+    }
+
     div.gop {
         float: left;
         margin-right: 50px;
@@ -100,6 +123,6 @@ table {
 }
 
 .margin-table {
-    float: left;
+    float: right;
     margin-left: 30px;
 }
