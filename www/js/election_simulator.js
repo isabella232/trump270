@@ -54,7 +54,7 @@ var ElectionSimulator = function(rslt_container, tab_container, ctrl_container, 
     }
 }
 
-ElectionSimulator.prototype.makeOutcomes = function() {
+ElectionSimulator.prototype.getDetails = function(outcome) {
     var _self = this;
     var outcomes = {}
 
@@ -63,43 +63,57 @@ ElectionSimulator.prototype.makeOutcomes = function() {
         outcomes[state] = [];
     }
 
-    var electoralVotes = [];
-    electoralVotes = {gop: 155, dem: 124};
-
-    var outcome = _self.calculateOutcome(_self.adjustments);
     _.each(outcome, function(row) {
         var marginPct = Math.abs(row.margin) * 100;
         var winnerClass = (row.margin > 0) ? 'gop' : 'dem';
         var marginClass = 'margin-' + marginPct.toFixed(0);
-        electoralVotes[winnerClass] += row.electoralVotes;
         outcomes[row.state].push({
             winnerClass: winnerClass,
             marginClass: marginClass,
-            margin: marginPct.toFixed(1)
+            margin: marginPct.toFixed(1),
+            electoralVotes: row.electoralVotes
         });
     });
 
     return {
-        electoralVotes: electoralVotes,
         rows: outcomes
+    }
+}
+
+ElectionSimulator.prototype.getTotals = function(outcome) {
+    var _self = this;
+
+    var electoralVotes = {gop: 155, dem: 124};
+    _.each(outcome, function(row) {
+        var winnerClass = (row.margin > 0) ? 'gop' : 'dem';
+        electoralVotes[winnerClass] += row.electoralVotes;
+    });
+
+    return {
+        electoralVotes: electoralVotes
     }
 }
 
 ElectionSimulator.prototype.watchControl = function(e) {
     var _self=this;
-    var outcomes = _self.makeOutcomes();
-    _self.tableReactive.set('rows', outcomes.rows);
-    _self.tableReactive.set('electoralVotes', outcomes.electoralVotes);
-    _self.resultsRactive.set('rows', outcomes.rows);
-    _self.resultsRactive.set('electoralVotes', outcomes.electoralVotes);
+    var outcome = _self.calculateOutcome(_self.adjustments);
+    var totals = _self.getTotals(outcome)
+    _self.resultsRactive.set('electoralVotes', totals.electoralVotes);
+    var details = _self.getDetails(outcome)
+    _self.tableReactive.set('rows', details.rows);
+
 }
 
 ElectionSimulator.prototype.render = function() {
         var _self = this;
+
+        // Lauch initial calculations
+        var outcome = _self.calculateOutcome(_self.adjustments);
+
         _self.tableReactive = new Ractive({
             el: _self.tab_container,
             template: '#margin-table-template',
-            data: _self.makeOutcomes()
+            data: _self.getDetails(outcome)
         });
 
         _self.controlsRactive = new Ractive({
@@ -111,7 +125,7 @@ ElectionSimulator.prototype.render = function() {
         _self.resultsRactive = new Ractive({
             el: _self.rslt_container,
             template: '#results-template',
-            data: _self.makeOutcomes()
+            data: _self.getTotals(outcome)
         });
 
         //Bind watchControl to the ElectionSimulator instance object
