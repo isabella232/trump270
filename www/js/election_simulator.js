@@ -7,6 +7,7 @@ var ElectionSimulator = function(rslt_container, tab_container, ctrl_container, 
     _self.adjustments = adjustments;
     _self.ctrl_enabled = ctrl_enabled;
     _self.tossUpStates = _.pluck(data, 'state');
+    _self.usps_states = _.pluck(data, 'state_usps');
 
 }
 
@@ -59,7 +60,7 @@ ElectionSimulator.prototype.calculateOutcome = function(adjustments) {
 }
 
 
-ElectionSimulator.prototype.getDetails = function(outcome) {
+ElectionSimulator.prototype.getDetailsOrig = function(outcome) {
     var _self = this;
     var outcomes = {}
 
@@ -73,6 +74,32 @@ ElectionSimulator.prototype.getDetails = function(outcome) {
         var winnerClass = (row.margin > 0) ? 'gop' : 'dem';
         var marginClass = 'margin-' + marginPct.toFixed(0);
         outcomes[row.state].push({
+            winnerClass: winnerClass,
+            marginClass: marginClass,
+            margin: marginPct.toFixed(1),
+            electoralVotes: row.electoralVotes
+        });
+    });
+
+    return {
+        rows: outcomes
+    }
+}
+
+ElectionSimulator.prototype.getDetails = function(outcome) {
+    var _self = this;
+    var outcomes = {}
+
+    for(var i = 0; i < _self.usps_states.length; ++i) {
+        var state_usps = _self.usps_states[i];
+        outcomes[state_usps] = [];
+    }
+
+    _.each(outcome, function(row) {
+        var marginPct = Math.abs(row.margin) * 100;
+        var winnerClass = (row.margin > 0) ? 'gop' : 'dem';
+        var marginClass = 'margin-' + marginPct.toFixed(0);
+        outcomes[row.state_usps].push({
             winnerClass: winnerClass,
             marginClass: marginClass,
             margin: marginPct.toFixed(1),

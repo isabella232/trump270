@@ -47,16 +47,15 @@
 {{#each adjustments}}
     <h3>{{label}}</h3>
     <div class="control-group {{@key}}-pct-group">
-        <label for="{{@key}}-pct">margin</label>
+        <span class="control-label">margin</span>
         <span>{{#if pct === 0.0}}{{elseif pct < 0}}+{{else}}-{{/if}}{{(Math.abs(pct * 100)).toFixed(0)}}% DEM</span>
         <input id="{{@key}}-pct" type="range" step="0.01" value="{{this.pct}}" min="-0.10" max="0.10">
         <span>{{#if pct === 0.0}}{{elseif pct > 0}}+{{else}}-{{/if}}{{(Math.abs(pct * 100)).toFixed(0)}}% GOP</span>
     </div>
     <div class="control-group  {{@key}}-turnout-group">
-        <label for="{{@key}}-turnout">turnout</label>
-        <span>{{#if turnout === 0.0}}{{elseif turnout < 0}}+{{else}}-{{/if}}{{(Math.abs(turnout * 100)).toFixed(0)}}% DEM</span>
+        <span class="control-label">turnout</span>
         <input id="{{@key}}-turnout" type="range" step="0.01" value="{{this.turnout}}" min="-0.10" max="0.10">
-        <span>{{#if turnout === 0.0}}{{elseif turnout > 0}}+{{else}}-{{/if}}{{(Math.abs(turnout * 100)).toFixed(0)}}% GOP</span>
+        <span>{{#if turnout > 0}}+{{/if}}{{(Math.abs(turnout * 100)).toFixed(0)}}%</span>
 {{/each}}
 </script>
 
