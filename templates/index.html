@@ -32,31 +32,37 @@
 
 <script id="controls-template" type="text/ractive">
 {{#each adjustments}}
-<div class="{{@key}}">
+    <h2>{{@key}}</h2>
     <div class="control-group {{@key}}-pct-group">
+        <label for="{{@key}}-pct">margin</label>
+        <span>-{{(Math.abs(this.pct * 100)).toFixed(0)}}% DEM</span>
         <input id="{{@key}}-pct" type="range" step="0.01" value="{{this.pct}}" min="-0.10" max="0.10">
-        <span>{{(this.pct * 100).toFixed(0)}}%</span>
-        <label for="{{@key}}-pct">{{@key}} margin</label>
+        <span>+{{(Math.abs(this.pct * 100)).toFixed(0)}}% GOP</span>
+
     </div>
     <div class="control-group  {{@key}}-turnout-group">
+        <label for="{{@key}}-turnout">turnout</label>
+        <span>-{{(Math.abs(this.turnout * 100)).toFixed(0)}}% DEM</span>
         <input id="{{@key}}-turnout" type="range" step="0.01" value="{{this.turnout}}" min="-0.10" max="0.10">
-        <span>{{(this.turnout * 100).toFixed(0)}}%</span>
-        <label for="{{@key}}-turnout">{{@key}} turnout</label>
-    </div>
+        <span>+{{(Math.abs(this.turnout * 100)).toFixed(0)}}% GOP</span>
+
     <hr/>
-</div>
 {{/each}}
 </script>
 <script id="results-template" type="text/ractive">
-    <h3 class="votes">GOP votes</h3>
-    {{#electoralVotes}}
-        {{gop}}
-    {{/electoralVotes}}
-
-    <h3 class="votes">Dem votes</h3>
-    {{#electoralVotes}}
-        {{dem}}
-    {{/electoralVotes}}
+    <div class="gop">
+        <label for="" class="votes">GOP votes</label>
+        {{#electoralVotes}}
+        <span class="gop-votes {{#if this.gop > 270}}winner{{/if}}">{{gop}}</span>
+        {{/electoralVotes}}
+    </div>
+    <div class="dem">
+        <label for="" class="votes">DEM votes</label>
+        {{#electoralVotes}}
+        <span class="dem-votes {{#if this.dem > 270}}winner{{/if}}">{{dem}}</span>
+        {{/electoralVotes}}
+    </div>
+    <hr/>
 </script>
 {% endraw %}
 

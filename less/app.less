@@ -28,20 +28,12 @@ table {
     border-collapse: collapse;
     font-family: "Courier New", monospace;
     font-size: 12px;
-    th, td {
+    td {
         padding: 2px 0;
         font-weight: 300;
         min-width: 2rem;
         border: 1px solid #fff;
 
-    }
-    thead {
-        th, td {
-            text-align: center;
-        }
-        td.votes {
-            text-align: right;
-        }
     }
     tbody {
         th {
@@ -76,13 +68,36 @@ table {
 
 .table-controls{
     float: left;
-
     &.disabled {
         pointer-events: none;
     }
+
+    h2 {
+        margin: 0px 0px 2px 0px;
+    }
 }
 
+.table-totals{
+    float: left;
+    div.gop {
+        float: left;
+        margin-right: 50px;
+        span {
+            color: rgba(200, 0, 0, 1);
+        }
+    }
 
+    div.dem {
+        float: left;
+        span {
+            color: rgba(0, 0, 200, 1);
+        }
+    }
+
+    span.winner {
+        font-weight: bold;
+    }
+}
 
 .margin-table {
     float: left;
