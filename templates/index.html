@@ -12,6 +12,18 @@
 
 {% block extra_foot_js %}
 {% raw %}
+<script id="results-template" type="text/ractive">
+    <h1>hi</h1>
+    <!--<h3 class="votes">GOP votes</h3>-->
+    // {{#electoralVotes}}
+    // {{gop}}
+    // {{/electoralVotes}}
+
+    <!--<h3 class="votes">Dem votes</h3>-->
+    // {{#electoralVotes}}
+    // {{dem}}
+    // {{/electoralVotes}}
+</script>
 <script id="margin-table-template" type="text/ractive">
 <table>
     <thead>

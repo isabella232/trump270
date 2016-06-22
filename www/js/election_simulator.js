@@ -1,6 +1,7 @@
-var ElectionSimulator = function(tab_container, ctrl_container, adjustments, ctrl_enabled, data) {
+var ElectionSimulator = function(rslt_container, tab_container, ctrl_container, adjustments, ctrl_enabled, data) {
     var _self = this;
 
+    _self.rslt_container = rslt_container;
     _self.tab_container = tab_container;
     _self.ctrl_container = ctrl_container;
     _self.adjustments = adjustments;
@@ -103,6 +104,12 @@ ElectionSimulator.prototype.render = function() {
             el: _self.ctrl_container,
             template: '#controls-template',
             data: _self.adjustments
+        });
+
+        _self.resultsRactive = new Ractive({
+            el: _self.rslt_container,
+            template: '#results-template',
+            data: _self.makeOutcomes()
         });
 
         //Bind watchControl to the ElectionSimulator instance object

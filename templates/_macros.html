@@ -1,5 +1,6 @@
 {% macro model_table(id) -%}
 <div class="container clearfix">
+    <div id="{{ id }}-results" class-"results-container"></div>
     <div id="{{ id }}-table-controls" class="table-controls {% if kwargs.get('interactive') == 'disabled' %} disabled{% endif %}"></div>
     <div id="{{ id }}-margin-table" class="margin-table"></div>
 </div>
@@ -37,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     {% if kwargs.get('interactive') == 'disabled' %}
     interactive = false;
     {% endif %}
-    simulator = new ElectionSimulator("{{ id }}-margin-table", "{{ id }}-table-controls", adjustments, interactive, baseData.data);
+    simulator = new ElectionSimulator("{{ id }}-results-container", "{{ id }}-margin-table", "{{ id }}-table-controls", adjustments, interactive, baseData.data);
     simulator.render();
 });
 </script>
