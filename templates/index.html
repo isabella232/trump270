@@ -45,18 +45,18 @@
 </script>
 <script id="controls-template" type="text/ractive">
 {{#each adjustments}}
-    <h3>{{@key.replace("_", " ")}}</h3>
+    <h3>{{label}}</h3>
     <div class="control-group {{@key}}-pct-group">
         <label for="{{@key}}-pct">margin</label>
-        <span>{{#if this.pct === 0.0}}{{elseif this.pct < 0}}+{{else}}-{{/if}}{{(Math.abs(this.pct * 100)).toFixed(0)}}% DEM</span>
+        <span>{{#if pct === 0.0}}{{elseif pct < 0}}+{{else}}-{{/if}}{{(Math.abs(pct * 100)).toFixed(0)}}% DEM</span>
         <input id="{{@key}}-pct" type="range" step="0.01" value="{{this.pct}}" min="-0.10" max="0.10">
-        <span>{{#if this.pct === 0.0}}{{elseif this.pct > 0}}+{{else}}-{{/if}}{{(Math.abs(this.pct * 100)).toFixed(0)}}% GOP</span>
+        <span>{{#if pct === 0.0}}{{elseif pct > 0}}+{{else}}-{{/if}}{{(Math.abs(pct * 100)).toFixed(0)}}% GOP</span>
     </div>
     <div class="control-group  {{@key}}-turnout-group">
         <label for="{{@key}}-turnout">turnout</label>
-        <span>{{#if this.turnout === 0.0}}{{elseif this.turnout < 0}}+{{else}}-{{/if}}{{(Math.abs(this.turnout * 100)).toFixed(0)}}% DEM</span>
+        <span>{{#if turnout === 0.0}}{{elseif turnout < 0}}+{{else}}-{{/if}}{{(Math.abs(turnout * 100)).toFixed(0)}}% DEM</span>
         <input id="{{@key}}-turnout" type="range" step="0.01" value="{{this.turnout}}" min="-0.10" max="0.10">
-        <span>{{#if this.turnout === 0.0}}{{elseif this.turnout > 0}}+{{else}}-{{/if}}{{(Math.abs(this.turnout * 100)).toFixed(0)}}% GOP</span>
+        <span>{{#if turnout === 0.0}}{{elseif turnout > 0}}+{{else}}-{{/if}}{{(Math.abs(turnout * 100)).toFixed(0)}}% GOP</span>
 {{/each}}
 </script>
 

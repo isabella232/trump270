@@ -5,9 +5,69 @@
     <div id="{{ id }}-table-controls" class="table-controls {% if kwargs.get('interactive') == 'disabled' %} disabled{% endif %}"></div>
 </div>
 <script>
+
+var STATE_TO_USPS = {
+        'Alabama': 'AL',
+        'Alaska': 'AK',
+        'Arkansas': 'AR',
+        'Arizona': 'AZ',
+        'California': 'CA',
+        'Colorado': 'CO',
+        'Connecticut': 'CT',
+        'D.C.': 'DC',
+        'Delaware': 'DE',
+        'Florida': 'FL',
+        'Georgia': 'GA',
+        'Hawaii': 'HI',
+        'Iowa': 'IA',
+        'Idaho': 'ID',
+        'Illinois': 'IL',
+        'Indiana': 'IN',
+        'Kansas': 'KS',
+        'Kentucky': 'KY',
+        'Louisiana': 'LA',
+        'Massachusetts': 'MA',
+        'Maryland': 'MD',
+        'Maine': 'ME',
+        'Michigan': 'MI',
+        'Minnesota': 'MN',
+        'Missouri': 'MO',
+        'Mississippi': 'MS',
+        'Montana': 'MT',
+        'North Carolina': 'NC',
+        'North Dakota': 'ND',
+        'Nebraska': 'NE',
+        'New Hampshire': 'NH',
+        'New Jersey': 'NJ',
+        'New Mexico': 'NM',
+        'Nevada': 'NV',
+        'New York': 'NY',
+        'Ohio': 'OH',
+        'Oklahoma': 'OK',
+        'Oregon': 'OR',
+        'Pennsylvania': 'PA',
+        'P.R.': 'PR',
+        'Rhode Island[': 'RI',
+        'South Carolina': 'SC',
+        'South Dakota': 'SD',
+        'Tennessee': 'TN',
+        'Texas': 'TX',
+        'Utah': 'UT',
+        'Virginia': 'VA',
+        'Vermont': 'VT',
+        'Washington': 'WA',
+        'Wisconsin': 'WI',
+        'West Virginia': 'WV',
+        'Wyoming': 'WY'};
+
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Retrieve the base data from the global scope
-    var data = baseData.data;
+    // Retrieve the base data from the global scope and include state abbreviation
+    var data = baseData.data.map(function(d) {
+        d.state_usps = STATE_TO_USPS[d.state];
+        return d;
+    });
+
 
     //Get the adjustments from the macro parameters
     var adjustments = {
@@ -15,22 +75,27 @@ document.addEventListener('DOMContentLoaded', function() {
             'white_man': {
                 'pct': {{kwargs.get('white_man_pct', 0.0)}},
                 'turnout': {{kwargs.get('white_man_turnout', 0.0)}},
+                'label': "White Men"
             },
             'white_woman': {
                 'pct': {{kwargs.get('white_woman_pct', 0.0)}},
                 'turnout': {{kwargs.get('white_woman_turnout', 0.0)}},
+                'label': "White Women"
             },
             'black': {
                 'pct': {{kwargs.get('black_pct', 0.0)}},
                 'turnout': {{kwargs.get('black_turnout', 0.0)}},
+                'label': "Black"
             },
             'hispanic': {
                 'pct': {{kwargs.get('hispanic_pct', 0.0)}},
                 'turnout': {{kwargs.get('hispanic_turnout', 0.0)}},
+                'label': "Hispanic"
             },
             'other': {
                 'pct': {{kwargs.get('other_pct', 0.0)}},
                 'turnout': {{kwargs.get('other_turnout', 0.0)}},
+                'label': "Other"
             }
         }
     };
