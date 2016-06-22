@@ -79,6 +79,10 @@ table {
 
     &.disabled {
         pointer-events: none;
+
+        input[type=range]::-webkit-slider-thumb {
+            background-color: #b0b0b0;
+        }
     }
 
     h3 {
@@ -89,6 +93,28 @@ table {
         &:first-child {
             margin-top: 0;
         }
+    }
+
+    input[type=range]{
+        -webkit-appearance: none;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        background: #ddd;
+        height: 3px;
+        border-radius: 3px;
+        border: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 12px;
+        width: 12px;
+        background-color: #585858;
+        border-radius: 50%;
+        margin-top: -5px;
+    }
+    input[type=range]:focus {
+        outline: none;
     }
 }
 
