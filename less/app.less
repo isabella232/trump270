@@ -33,9 +33,7 @@ p {
 
 table {
     border-collapse: collapse;
-    // font-family: "Courier New", monospace;
     font: 14px/1.4 Helvetica,Arial,sans-serif;
-    // font-size: 12px;
     td {
         padding: 2px 0;
         font-weight: 300;
@@ -47,9 +45,14 @@ table {
         th {
             text-align: left;
             padding-left: 3px;
+            padding-top: 2px;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 20px;
         }
         td {
             font-size: 9px;
+            padding: 5px;
             color: #fff;
             text-align: center;
             &.gop {
@@ -76,6 +79,7 @@ table {
 
 .table-controls{
     float: left;
+    // clear: both;
 
     &.disabled {
         pointer-events: none;
@@ -86,13 +90,17 @@ table {
     }
 
     h3 {
-        margin: 15px 0px 5px 0px;
-        // font: 14px/1.4 Helvetica,Arial,sans-serif;
+        margin: 25px 0px 5px 0px;
         text-transform: capitalize;
 
         &:first-child {
             margin-top: 0;
         }
+    }
+
+    .control-group {
+        margin: 0;
+        min-width: 325px;
     }
 
     input[type=range]{
@@ -119,9 +127,11 @@ table {
 }
 
 .table-totals{
-    float: left;
+    // float: left;
+    margin: 0 auto;
     margin-bottom: 20px;
     min-width: 30%;
+    text-align: center;
 
     p {
         font-size: 45px;
@@ -129,7 +139,9 @@ table {
     }
 
     div.gop {
-        float: left;
+        // float: left;
+        max-width: 160px;
+        display: inline-block;
         margin-right: 50px;
         span {
             color: rgba(200, 0, 0, 1);
@@ -137,7 +149,9 @@ table {
     }
 
     div.dem {
-        float: left;
+        // float: left;
+        max-width: 160px;
+        display: inline-block;
         span {
             color: rgba(0, 0, 200, 1);
         }
@@ -149,6 +163,6 @@ table {
 }
 
 .margin-table {
-    float: right;
-    margin-left: 30px;
+    float: left;
+    margin-left: 60px;
 }
