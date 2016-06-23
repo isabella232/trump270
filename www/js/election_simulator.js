@@ -6,6 +6,7 @@ var ElectionSimulator = function(rslt_container, tab_container, ctrl_container, 
     _self.ctrl_container = ctrl_container;
     _self.adjustments = adjustments;
     _self.ctrl_enabled = ctrl_enabled;
+    _self.data = data;
     _self.tossUpStates = _.pluck(data, 'state');
     _self.usps_states = _.pluck(data, 'state_usps');
 
@@ -15,7 +16,7 @@ var ElectionSimulator = function(rslt_container, tab_container, ctrl_container, 
 ElectionSimulator.prototype.calculateOutcome = function(adjustments) {
     var _self = this;
     var processedData = [];
-    _.each(baseData.data, function(row) {
+    _.each(_self.data, function(row) {
         var processedRow = {};
         var projectedGOPVotes = 0;
         var projectedDemVotes = 0;
